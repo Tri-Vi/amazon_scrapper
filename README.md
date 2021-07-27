@@ -1,1 +1,1 @@
-# amazon_scrapper
+# amazon_scraper
