@@ -15,6 +15,7 @@ app.get('/', (req,res)=>{
   res.send('Welcome to Amazon Scrapper API');
 });
 
+// GET PRODUCT INFO
 app.get('/products/:productId', async(req,res)=>{
   const {productId} = req.params;
 
@@ -22,7 +23,29 @@ app.get('/products/:productId', async(req,res)=>{
     const response = await request(`${baseUrl}&url=https://www.amazon.com/dp/${productId}`);
     res.json(JSON.parse(response));
   } catch(error){
-    console.log(error);
+    res.json(error);
+  }
+});
+
+// GET PRODUCT REVIEWS
+app.get('/products/:productId/reviews', async(req,res)=> {
+  const {productId} = req.params;
+
+  try {
+    const response = await request(`${baseUrl}&url=https://www.amazon.com/product-reviews/${productId}`);
+    res.json(JSON.parse(response));
+  } catch(error){
+    res.json(error);
+  }
+})
+
+// GET SEARCH Results
+app.get('/search/:searchQuery', async(req,res)=>{
+  const { searchQuery } = req.params;
+  try {
+    const response = await request(`${baseUrl}&url=https://www.amazon.com/s?k=${searchQuery}`);
+    res.json(JSON.parse(response));
+  } catch (error){
     res.json(error);
   }
 });
